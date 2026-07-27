@@ -49,7 +49,18 @@
   .btn-line{background:transparent;color:var(--ink);}
   .btn-line:hover{background:var(--ink);color:var(--on-ink);}
   header .btn,footer .btn{width:auto;}
-  @media (max-width:900px){.navlinks{display:none;}}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;}
+  .nav-toggle svg{width:24px;height:24px;stroke:#111;stroke-width:1.6;fill:none;}
+  @media (max-width:900px){
+    .navrow{position:relative;}
+    .nav-toggle{display:inline-flex;}
+    .navlinks{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:#fff;padding:12px 20px;border-top:1px solid #eee;z-index:50;}
+    .navlinks.open{display:flex;}
+    .navlinks a{padding:12px 0;border-bottom:1px solid #f0f0f0;}
+  }
+  @media (max-width:640px){
+    .navrow .side .btn-solid{display:none;}
+  }
 
   .crumb{font-size:.76rem;color:var(--ink-soft);padding:22px 0 0;}
   .crumb a:hover{color:var(--mist-deep);}
@@ -174,11 +185,15 @@
 
 <header class="site">
   <div class="navrow">
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <nav class="navlinks">
       <a href="#">About Us</a>
       <a href="plp.html">Shop</a>
       <a href="#">Custom Design</a>
       <a href="#">Lab-Grown Diamonds</a>
+      <a href="appointment.html" class="nav-book">Book an Appointment</a>
     </nav>
     <a href="home.html" class="wordmark">DIAMOND SOIRÉE</a>
     <div class="side">
@@ -407,6 +422,15 @@
     tick();
     setInterval(tick, 1000);
   })();
+</script>
+<script>
+document.querySelectorAll('.nav-toggle').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const nav=btn.nextElementSibling;
+    const open=nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+  });
+});
 </script>
 </body>
 </html>
